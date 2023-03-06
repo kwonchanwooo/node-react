@@ -28,7 +28,7 @@ app.get('*', (req, res) => {
 });
 
 //리액트 요청 라우터
-app.post('/api/send', (req, res) => {
+app.post('/api/create', (req, res) => {
 	console.log(req.body);
-	res.json({ success: true, result: req.body.name + '2' });
+	res.json({ success: true });
 });

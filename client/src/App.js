@@ -1,24 +1,31 @@
 import axios from 'axios';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
-	const item = useMemo(() => ({ name: 'David' }), []);
+	const [Tit, setTit] = useState('');
+	const [Con, setCon] = useState('');
 
-	useEffect(() => {
-		// /api/send로 item객체를 서버쪽에 전달
+	const handleCreate = () => {
+		const item = { title: Tit, content: Con };
+
 		axios
-			.post('/api/send', item)
-			.then((res) => {
-				//서버쪽에서 응답이 성공적으로 넘어오면 해당 값을 콘솔로 출력
-				console.log(res);
-			})
+			.post('/api/create', item)
+			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
-	}, [item]);
+	};
+
+	useEffect(() => {}, []);
 
 	return (
-		<div className='App'>
-			<h1>React</h1>
-		</div>
+		<section>
+			<label htmlFor='tit'>Title</label>
+			<input type='text' id='tit' value={Tit} onChange={(e) => setTit(e.target.value)} />
+			<br />
+			<label htmlFor='con'>Content</label>
+			<textarea name='cons' id='id' cols='30' rows='3' value={Con} onChange={(e) => setCon(e.target.value)}></textarea>
+			<br />
+			<button onClick={handleCreate}>SEND</button>
+		</section>
 	);
 }
 
