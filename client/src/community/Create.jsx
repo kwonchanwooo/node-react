@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import Layout from '../common/Layout';
 
 function Create() {
 	const [Tit, setTit] = useState('');
@@ -15,7 +16,7 @@ function Create() {
 	};
 
 	return (
-		<section>
+		<Layout name={'Post'}>
 			<label htmlFor='tit'>Title</label>
 			<input type='text' id='tit' value={Tit} onChange={(e) => setTit(e.target.value)} />
 			<br />
@@ -23,7 +24,7 @@ function Create() {
 			<textarea name='cons' id='id' cols='30' rows='3' value={Con} onChange={(e) => setCon(e.target.value)}></textarea>
 			<br />
 			<button onClick={handleCreate}>SEND</button>
-		</section>
+		</Layout>
 	);
 }
 
