@@ -68,3 +68,11 @@ app.post('/api/read', (req, res) => {
 			res.json({ success: false });
 		});
 });
+
+//글 상제정보 요청 라우터
+app.post('/api/detail', (req, res) => {
+	Post.findOne({ communityNum: req.body.num })
+		.exec()
+		.then((doc) => res.json({ success: true, detail: doc }))
+		.catch((err) => res.json({ success: false, err: err }));
+});

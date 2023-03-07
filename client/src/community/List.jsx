@@ -11,7 +11,6 @@ function List() {
 			.post('/api/read')
 			.then((res) => {
 				if (res.data.success) {
-					console.log(res.data.communityList);
 					setList(res.data.communityList);
 					//요청은 성공해서 응답은 받았으나 DB로 데이터 가져오는것을 실패했을때
 				} else {
