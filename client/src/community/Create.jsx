@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
 import Layout from '../common/Layout';
+import { useNavigate } from 'react-router-dom';
 
 function Create() {
+	const navigate = useNavigate();
 	const [Tit, setTit] = useState('');
 	const [Con, setCon] = useState('');
 
@@ -11,7 +13,14 @@ function Create() {
 
 		axios
 			.post('/api/create', item)
-			.then((res) => console.log(res))
+			.then((res) => {
+				if (res.data.success) {
+					alert('글 저장이 완료되었습니다. ');
+					navigate('/list');
+				} else {
+					alert('글 저장에 실패했습니다.');
+				}
+			})
 			.catch((err) => console.log(err));
 	};
 
