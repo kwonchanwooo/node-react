@@ -28,7 +28,7 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-//리액트 요청 라우터
+//글 저장 라우터
 app.post('/api/create', (req, res) => {
 	console.log(req.body);
 
@@ -43,4 +43,17 @@ app.post('/api/create', (req, res) => {
 	PostModel.save()
 		.then(() => res.json({ success: true }))
 		.catch(() => res.json({ success: false }));
+});
+
+//글 목록 요청 라우터
+app.post('/api/read', (req, res) => {
+	Post.find()
+		.exec()
+		.then((doc) => {
+			res.json({ success: true, communityList: doc });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.json({ success: false });
+		});
 });
