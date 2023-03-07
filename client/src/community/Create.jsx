@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-function App() {
+function Create() {
 	const [Tit, setTit] = useState('');
 	const [Con, setCon] = useState('');
 
@@ -13,8 +13,6 @@ function App() {
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
 	};
-
-	useEffect(() => {}, []);
 
 	return (
 		<section>
@@ -29,4 +27,4 @@ function App() {
 	);
 }
 
-export default App;
+export default Create;
