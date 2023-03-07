@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
 const { Post } = require('./model/postSchema.js');
+const { Counter } = require('./model/counterSchema.js');
 
 //클라이언트에서 보내는 데이터를 전달받도록 설정 (body-parser)
 app.use(express.json());
@@ -29,20 +30,30 @@ app.get('*', (req, res) => {
 });
 
 //글 저장 라우터
+//글 저장 순서 -> Counter모델로 글번호 가져옴 -> body-parser로 제목, 본문 가져와서 글번호 추가후 저장 -> 저장 완료후 카운터 모델의 글번호 증가
 app.post('/api/create', (req, res) => {
-	console.log(req.body);
+	Counter.findOne({ name: 'counter' })
+		.exec()
+		.then((doc) => {
+			const PostModel = new Post({
+				title: req.body.title,
+				content: req.body.content,
+				communityNum: doc.communityNum,
+			});
 
-	//postSchema가 적용된 Post모델 생성함수를 호출해서 데이터를 저장한 인스턴스 생성
-	const PostModel = new Post({
-		title: req.body.title,
-		content: req.body.content,
-	});
-
-	//게시글 인스턴스에서 save메서드 호출하면 DB에 데이터가 저장됨
-	//이때 save메서드는 프로미스 객체를 반환하므로 데이저 저장이 성공하면 then, 그렇지 않으면 catch문 실행
-	PostModel.save()
-		.then(() => res.json({ success: true }))
-		.catch(() => res.json({ success: false }));
+			PostModel.save().then(() => {
+				//$inc(증가), $dec(감소), $set(새로운 값으로 변경)
+				Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } })
+					.then(() => {
+						res.json({ success: true });
+					})
+					.catch((err) => {
+						console.log(err);
+						res.json({ success: false });
+					});
+			});
+		})
+		.catch((err) => console.log(err));
 });
 
 //글 목록 요청 라우터
