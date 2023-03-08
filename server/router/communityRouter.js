@@ -52,4 +52,20 @@ router.post('/detail', (req, res) => {
 		.catch((err) => res.json({ success: false, err: err }));
 });
 
+//글 수정 요청 라우터
+router.post('/edit', (req, res) => {
+	const temp = {
+		title: req.body.title,
+		content: req.body.content,
+	};
+
+	Post.updateOne({ communityNum: req.body.num }, { $set: temp })
+		.exec()
+		.then((doc) => {
+			console.log(doc);
+			res.json({ success: true });
+		})
+		.catch((err) => res.json({ success: false }));
+});
+
 module.exports = router;
