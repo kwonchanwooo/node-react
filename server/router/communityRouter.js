@@ -45,6 +45,7 @@ router.post('/read', (req, res) => {
 
 //글 상제정보 요청 라우터
 router.post('/detail', (req, res) => {
+	console.log(req.body.num);
 	Post.findOne({ communityNum: req.body.num })
 		.exec()
 		.then((doc) => res.json({ success: true, detail: doc }))
