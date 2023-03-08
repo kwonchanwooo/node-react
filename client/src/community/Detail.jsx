@@ -1,5 +1,5 @@
 import Layout from '../common/Layout';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -19,7 +19,24 @@ const BtnSet = styled.nav`
 
 function Detail() {
 	const params = useParams();
+	const navigate = useNavigate();
 	const [Detail, setDetail] = useState(null);
+
+	const handleDelete = () => {
+		if (!window.confirm('정말 삭제하겠습니까?')) return;
+
+		axios
+			.post('/api/community/delete', params)
+			.then((res) => {
+				if (res.data.success) {
+					alert('게시글이 삭제되었습니다.');
+					navigate('/list');
+				} else {
+					alert('게시글 삭제에 실패했습니다.');
+				}
+			})
+			.catch((err) => console.log(err));
+	};
 
 	useEffect(() => {
 		axios
@@ -47,9 +64,7 @@ function Detail() {
 						<button>
 							<Link to={`/edit/${params.num}`}>Edit</Link>
 						</button>
-						<button>
-							<Link>Delete</Link>
-						</button>
+						<button onClick={handleDelete}>Delete</button>
 					</BtnSet>
 				</>
 			}
