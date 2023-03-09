@@ -51,7 +51,6 @@ const Util = styled.ul`
 function Header() {
 	const navigate = useNavigate();
 	const user = useSelector((store) => store.user);
-	console.log(user);
 	const activeStyle = { color: 'hotpink' };
 
 	return (
