@@ -6,6 +6,8 @@ import Detail from './community/Detail';
 import List from './community/List';
 import Edit from './community/Edit';
 import GlobalStyle from './GlobalStyle';
+import Join from './user/Join';
+import Loign from './user/Loign';
 
 function App() {
 	return (
@@ -19,6 +21,9 @@ function App() {
 				<Route path='/create' element={<Create />} />
 				<Route path='/detail/:num' element={<Detail />} />
 				<Route path='/edit/:num' element={<Edit />} />
+
+				<Route path='/join' element={<Join />} />
+				<Route path='/login' element={<Loign />} />
 			</Routes>
 		</>
 	);
