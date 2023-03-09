@@ -1,5 +1,6 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import firebase from '../firebase';
 import styled from 'styled-components';
 
 const HeaderWrap = styled.header`
@@ -39,6 +40,7 @@ const Util = styled.ul`
 
 	li {
 		color: #777;
+		cursor: pointer;
 		a {
 			font: 14px/1 'arial';
 			color: #555;
@@ -47,6 +49,7 @@ const Util = styled.ul`
 `;
 
 function Header() {
+	const navigate = useNavigate();
 	const user = useSelector((store) => store.user);
 	console.log(user);
 	const activeStyle = { color: 'hotpink' };
@@ -90,6 +93,15 @@ function Header() {
 			) : (
 				<Util>
 					<li>{`${user.displayName}님 반갑습니다.`}</li>
+					<li
+						onClick={() => {
+							firebase.auth().signOut();
+							alert('로그아웃 되었습니다. 메인페이지로 이동합니다.');
+							navigate('/');
+						}}
+					>
+						로그아웃
+					</li>
 				</Util>
 			)}
 		</HeaderWrap>
