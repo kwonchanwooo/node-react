@@ -1,4 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const HeaderWrap = styled.header`
@@ -37,6 +38,7 @@ const Util = styled.ul`
 	gap: 20px;
 
 	li {
+		color: #777;
 		a {
 			font: 14px/1 'arial';
 			color: #555;
@@ -45,6 +47,8 @@ const Util = styled.ul`
 `;
 
 function Header() {
+	const user = useSelector((store) => store.user);
+	console.log(user);
 	const activeStyle = { color: 'hotpink' };
 
 	return (
@@ -59,25 +63,35 @@ function Header() {
 						Show List
 					</NavLink>
 				</li>
-				<li>
-					<NavLink to='/create' style={({ isActive }) => (isActive ? activeStyle : null)}>
-						Write Post
-					</NavLink>
-				</li>
+				{/* 로그인 유무에 따라 글작성 메뉴 보임처리 */}
+				{user.uid !== '' && (
+					<li>
+						<NavLink to='/create' style={({ isActive }) => (isActive ? activeStyle : null)}>
+							Write Post
+						</NavLink>
+					</li>
+				)}
 			</Gnb>
 
-			<Util>
-				<li>
-					<NavLink to='/login' style={({ isActive }) => (isActive ? activeStyle : null)}>
-						Login
-					</NavLink>
-				</li>
-				<li>
-					<NavLink to='/join' style={({ isActive }) => (isActive ? activeStyle : null)}>
-						Join
-					</NavLink>
-				</li>
-			</Util>
+			{/* 로그인 유무에 따라 로그인 메뉴 및 인사메세지 분기처리 */}
+			{user.uid === '' ? (
+				<Util>
+					<li>
+						<NavLink to='/login' style={({ isActive }) => (isActive ? activeStyle : null)}>
+							Login
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to='/join' style={({ isActive }) => (isActive ? activeStyle : null)}>
+							Join
+						</NavLink>
+					</li>
+				</Util>
+			) : (
+				<Util>
+					<li>{`${user.displayName}님 반갑습니다.`}</li>
+				</Util>
+			)}
 		</HeaderWrap>
 	);
 }
