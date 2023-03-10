@@ -37,6 +37,7 @@ router.post('/create', (req, res) => {
 router.post('/read', (req, res) => {
 	Post.find()
 		.populate('writer')
+		.sort({ createdAt: -1 })
 		.exec()
 		.then((doc) => {
 			res.json({ success: true, communityList: doc });
