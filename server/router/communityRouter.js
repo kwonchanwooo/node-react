@@ -36,6 +36,7 @@ router.post('/create', (req, res) => {
 //글 목록 요청 라우터
 router.post('/read', (req, res) => {
 	Post.find()
+		.populate('writer')
 		.exec()
 		.then((doc) => {
 			res.json({ success: true, communityList: doc });
@@ -50,6 +51,7 @@ router.post('/read', (req, res) => {
 router.post('/detail', (req, res) => {
 	console.log(req.body.num);
 	Post.findOne({ communityNum: req.body.num })
+		.populate('writer')
 		.exec()
 		.then((doc) => res.json({ success: true, detail: doc }))
 		.catch((err) => res.json({ success: false, err: err }));
