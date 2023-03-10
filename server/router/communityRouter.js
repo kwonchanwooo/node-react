@@ -59,7 +59,7 @@ router.get('/detail/:num', (req, res) => {
 });
 
 //글 수정 요청 라우터
-router.post('/edit', (req, res) => {
+router.put('/edit', (req, res) => {
 	const temp = {
 		title: req.body.title,
 		content: req.body.content,
