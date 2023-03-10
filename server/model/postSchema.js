@@ -3,14 +3,18 @@
 //Schema : 데이터베이스에 저장될 자료형식이나 키값을 강제하는 시스템적인 틀
 
 const mongoose = require('mongoose');
-//게시글 저장시 post모델에 데이터 추가될때 해당 글을 작성하는 사용자 정보도 userNum값을 이용해서
-//User 모델의 데이터 다큐먼트를 참조해서 가져오기 위함
+
 const postSchema = new mongoose.Schema(
 	{
 		title: String,
 		content: String,
 		communityNum: Number,
-		userNum: Number,
+		//User컬랙션에서 참조하고자 하는 document의 object_id가 등록되면
+		//해당 다큐먼트의 정보를 post에서 참조
+		writer: {
+			ref: 'User',
+			type: mongoose.Schema.Types.ObjectId,
+		},
 	},
 	{ collection: 'Posts' }
 );

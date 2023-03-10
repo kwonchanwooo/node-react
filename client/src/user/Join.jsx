@@ -24,6 +24,7 @@ function Join() {
 
 		let createdUser = await firebase.auth().createUserWithEmailAndPassword(Email, Pwd1);
 		await createdUser.user.updateProfile({ displayName: Name });
+		firebase.auth().signOut();
 
 		const item = {
 			displayName: createdUser.user.multiFactor.user.displayName,
@@ -32,8 +33,6 @@ function Join() {
 
 		axios.post('/api/user/join', item).then((res) => {
 			if (res.data.success) {
-				firebase.auth().signOut();
-				alert('회원가입에 성공했습니다.');
 				navigate('/login');
 			} else return alert('회원가입에 실패했습니다.');
 		});

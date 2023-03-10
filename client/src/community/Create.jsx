@@ -11,7 +11,9 @@ function Create() {
 	const [Con, setCon] = useState('');
 
 	const handleCreate = () => {
-		const item = { title: Tit, content: Con };
+		if (Tit.trim() === '' || Con.trim() === '') return alert('제목과 본문을 모두 입력하세요');
+		//글 저장시 서보 요청을 보낼때 현재 로그인되어 있는 사용자의 고유 아이디값을 같이 전달
+		const item = { title: Tit, content: Con, uid: user.uid };
 
 		axios
 			.post('/api/community/create', item)
