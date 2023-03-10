@@ -5,6 +5,7 @@ const { Counter } = require('../model/counterSchema.js');
 
 router.post('/join', (req, res) => {
 	const temp = req.body;
+	console.log(temp);
 
 	Counter.findOne({ name: 'counter' })
 		.then((doc) => {

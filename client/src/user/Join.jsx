@@ -1,9 +1,9 @@
 import Layout from '../common/Layout';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import firebase from '../firebase';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const BtnSet = styled.div`
 	margin-top: 20px;
@@ -12,7 +12,6 @@ const BtnSet = styled.div`
 `;
 
 function Join() {
-	const user = useSelector((store) => store.user);
 	const navigate = useNavigate();
 	const [Email, setEmail] = useState('');
 	const [Pwd1, setPwd1] = useState('');
@@ -20,29 +19,25 @@ function Join() {
 	const [Name, setName] = useState('');
 
 	const handleJoin = async () => {
-		if (!(Name && Email && Pwd1 && Pwd2)) {
-			return alert('모든 양식을 입력하세요.');
-		}
-		if (Pwd1 !== Pwd2) {
-			return alert('비밀번호 2개를 동일하게 입력하세요.');
-		}
+		if (!(Name && Email && Pwd1 && Pwd2)) return alert('모든 양식을 입력하세요.');
+		if (Pwd1 !== Pwd2) return alert('비밀번호 2개를 동일하게 입력하세요.');
 
-		//위의 조건을 통과해서 회원가입을 하기 위한 정보값을 변수에 할당
-		//이때 await문으로 firebase를 통해서 인증 완료 이후에 다음 코드가 동작되도록 처리
 		let createdUser = await firebase.auth().createUserWithEmailAndPassword(Email, Pwd1);
+		await createdUser.user.updateProfile({ displayName: Name });
 
-		//반환된 user정보값에 displayName이라는 키값으로 닉네임 추가 등록
-		await createdUser.user.updateProfile({
-			displayName: Name,
+		const item = {
+			displayName: createdUser.user.multiFactor.user.displayName,
+			uid: createdUser.user.multiFactor.user.uid,
+		};
+
+		axios.post('/api/user/join', item).then((res) => {
+			if (res.data.success) {
+				firebase.auth().signOut();
+				alert('회원가입에 성공했습니다.');
+				navigate('/login');
+			} else return alert('회원가입에 실패했습니다.');
 		});
-
-		console.log(createdUser.user);
-		navigate('/login');
 	};
-
-	useEffect(() => {
-		if (user.uid !== '') navigate('/');
-	}, [navigate, user]);
 
 	return (
 		<Layout name={'Join'}>
