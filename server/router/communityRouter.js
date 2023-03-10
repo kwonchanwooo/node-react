@@ -76,8 +76,8 @@ router.post('/edit', (req, res) => {
 });
 
 //글 삭제 요청 라우터
-router.post('/delete', (req, res) => {
-	Post.deleteOne({ communityNum: req.body.num })
+router.delete('/delete/:num', (req, res) => {
+	Post.deleteOne({ communityNum: req.params.num })
 		.exec()
 		.then(() => res.json({ success: true }))
 		.catch(() => res.json({ success: false }));
