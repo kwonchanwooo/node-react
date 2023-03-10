@@ -60,9 +60,11 @@ function Detail() {
 					<DetailWrap>
 						<h2>{Detail?.title}</h2>
 						<p>{Detail?.content}</p>
+						<span>작성자: {Detail?.writer.displayName}</span>
 					</DetailWrap>
 
-					{user.uid !== '' && (
+					{/* 로그인된 사용자의 아이디와 글작성한 사용자의 아이디가 동일할 때에만 수정, 삭제버튼 출력 */}
+					{user.uid === Detail?.writer.uid && (
 						<BtnSet>
 							<button>
 								<Link to={`/edit/${params.num}`}>Edit</Link>
