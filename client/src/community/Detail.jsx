@@ -42,7 +42,7 @@ function Detail() {
 
 	useEffect(() => {
 		axios
-			.post('/api/community/detail', params)
+			.get(`/api/community/detail/${params.num}`)
 			.then((res) => {
 				if (res.data.success) {
 					setDetail(res.data.detail);

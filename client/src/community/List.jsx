@@ -17,7 +17,7 @@ function List() {
 
 	useEffect(() => {
 		axios
-			.post('/api/community/read')
+			.get('/api/community/read/0')
 			.then((res) => {
 				if (res.data.success) {
 					setList(res.data.communityList);

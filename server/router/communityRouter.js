@@ -34,11 +34,11 @@ router.post('/create', (req, res) => {
 });
 
 //글 목록 요청 라우터
-router.post('/read', (req, res) => {
+router.get('/read/:count', (req, res) => {
 	Post.find()
 		.populate('writer')
 		.sort({ createdAt: -1 })
-		.limit(req.body.count)
+		.limit(req.params.count)
 		.exec()
 		.then((doc) => {
 			res.json({ success: true, communityList: doc });
@@ -50,9 +50,8 @@ router.post('/read', (req, res) => {
 });
 
 //글 상제정보 요청 라우터
-router.post('/detail', (req, res) => {
-	console.log(req.body.num);
-	Post.findOne({ communityNum: req.body.num })
+router.get('/detail/:num', (req, res) => {
+	Post.findOne({ communityNum: req.params.num })
 		.populate('writer')
 		.exec()
 		.then((doc) => res.json({ success: true, detail: doc }))
