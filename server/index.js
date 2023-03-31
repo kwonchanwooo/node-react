@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const app = express();
-const port = 5000;
+const port = 5500;
 
 //클라이언트에서 보내는 데이터를 전달받도록 설정 (body-parser)
 app.use(express.json());
@@ -18,7 +18,7 @@ app.use('/api/user', require('./router/userRouter.js'));
 //mongoDB 접속 구문
 app.listen(port, () => {
 	mongoose
-		.connect('mongodb+srv://dcodelab:!abcd1234@cluster0.vbms1jy.mongodb.net/?retryWrites=true&w=majority')
+		.connect('mongodb+srv://ppoppo121:!abcd1234@cluster0.6owurfr.mongodb.net/?retryWrites=true&w=majority')
 		.then(() => console.log(`Server app listening on port ${port}`))
 		.catch((err) => console.log(err));
 });
