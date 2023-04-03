@@ -10,6 +10,8 @@ const DetailWrap = styled.div`
 	padding: 40px;
 	background: #fff;
 	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.02);
+	border-radius: 10px;
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
 `;
 
 const BtnSet = styled.nav`
@@ -61,7 +63,11 @@ function Detail() {
 						<h2>{Detail?.title}</h2>
 						<p>{Detail?.content}</p>
 						<span>작성자: {Detail?.writer.displayName}</span>
-						{Detail?.createdAt === Detail?.updatedAt ? <p>작성일: {Detail?.createdAt.split('T')[0]}</p> : <p>수정일: {Detail?.updatedAt.split('T')[0]}</p>}
+						{Detail?.createdAt === Detail?.updatedAt ? (
+							<p>작성일: {Detail?.createdAt.split('T')[0]}</p>
+						) : (
+							<p>수정일: {Detail?.updatedAt.split('T')[0]}</p>
+						)}
 					</DetailWrap>
 
 					{/* 로그인된 사용자의 아이디와 글작성한 사용자의 아이디가 동일할 때에만 수정, 삭제버튼 출력 */}

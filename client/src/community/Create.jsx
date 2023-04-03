@@ -3,6 +3,19 @@ import { useState, useEffect } from 'react';
 import Layout from '../common/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+const Form = styled.div`
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-top: 60px;
+	border-radius: 10px;
+	margin-bottom: auto;
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+	padding-bottom: 60px;
+`;
 
 function Create() {
 	const user = useSelector((store) => store.user);
@@ -33,14 +46,16 @@ function Create() {
 	}, [navigate, user]);
 
 	return (
-		<Layout name={'Post'}>
-			<label htmlFor='tit'>Title</label>
-			<input type='text' id='tit' value={Tit} onChange={(e) => setTit(e.target.value)} />
-			<br />
-			<label htmlFor='con'>Content</label>
-			<textarea name='cons' id='id' cols='30' rows='3' value={Con} onChange={(e) => setCon(e.target.value)}></textarea>
-			<br />
-			<button onClick={handleCreate}>SEND</button>
+		<Layout name={'한글자 남기기'}>
+			<Form>
+				<label htmlFor='tit'>제목</label>
+				<input type='text' id='tit' value={Tit} onChange={(e) => setTit(e.target.value)} />
+				<br />
+				<label htmlFor='con'>남길 내용</label>
+				<textarea name='cons' id='id' cols='30' rows='3' value={Con} onChange={(e) => setCon(e.target.value)}></textarea>
+				<br />
+				<button onClick={handleCreate}>SEND</button>
+			</Form>
 		</Layout>
 	);
 }

@@ -10,9 +10,10 @@ const MainWrap = styled.main`
 		padding: 60px;
 
 		h1 {
-			font: normal 40px/1 'arial';
-			color: #333;
+			font: normal 50px/1 'arial';
+			color: black;
 			margin-bottom: 30px;
+			margin-top: 30px;
 		}
 
 		section {
@@ -40,6 +41,10 @@ const MainWrap = styled.main`
 				background: #555;
 				color: #fff;
 				border: none;
+				border-radius: 5px;
+				width: 150px;
+				height: 50px;
+
 				cursor: pointer;
 				a {
 					color: #fff;

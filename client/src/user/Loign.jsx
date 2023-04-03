@@ -8,6 +8,44 @@ const BtnSet = styled.div`
 	display: flex;
 	gap: 20px;
 	margin-top: 20px;
+	padding-bottom: 60px;
+`;
+const Form = styled.div`
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-top: 60px;
+	border-radius: 10px;
+	margin-bottom: auto;
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+`;
+
+const Input = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 60%;
+	height: 40px;
+	margin-bottom: 40px;
+
+	label {
+		height: 40px;
+		width: 20%;
+		margin-right: 20px;
+		> h2 {
+			font-size: 15px;
+			display: flex;
+			line-height: 1.8;
+		}
+	}
+	input {
+		width: 70%;
+		height: 40px;
+
+		border-radius: 10px;
+	}
 `;
 
 function Loign() {
@@ -31,14 +69,22 @@ function Loign() {
 
 	return (
 		<Layout name={'Login'}>
-			<input type='email' value={Email} placeholder='이메일 주소를 입력하세요.' onChange={(e) => setEmail(e.target.value)} />
-			<input type='password' value={Pwd} placeholder='비밀번호를 입력하세요.' onChange={(e) => setPwd(e.target.value)} />
+			<Form>
+				<Input>
+					<label htmlFor='Email'>이메일</label>
+					<input type='email' value={Email} placeholder='이메일 주소를 입력하세요.' onChange={(e) => setEmail(e.target.value)} />
+				</Input>
+				<Input>
+					<label htmlFor='Pwd'>비밀번호</label>
 
-			<BtnSet>
-				<button onClick={handleLogin}>로그인</button>
-				<button onClick={() => navigate('/join')}>회원가입</button>
-			</BtnSet>
-			{Err !== '' && <p>{Err}</p>}
+					<input type='password' value={Pwd} placeholder='비밀번호를 입력하세요.' onChange={(e) => setPwd(e.target.value)} />
+				</Input>
+				<BtnSet>
+					<button onClick={handleLogin}>로그인</button>
+					<button onClick={() => navigate('/join')}>회원가입</button>
+				</BtnSet>
+				{Err !== '' && <p>{Err}</p>}
+			</Form>
 		</Layout>
 	);
 }

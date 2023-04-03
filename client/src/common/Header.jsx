@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const HeaderWrap = styled.header`
 	width: 350px;
 	height: 100vh;
-	background: #222;
+	background: #ddd2d2;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -18,16 +18,25 @@ const Logo = styled.h1`
 
 	a {
 		font: 40px/1 'arial';
-		color: #fff;
+		color: black;
+		margin-bottom: 40px;
 	}
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 `;
 
 const Gnb = styled.ul`
 	a {
 		display: block;
 		padding: 10px;
-		font: bold 16px/1 'arial';
-		color: #bbb;
+		font: bold 20px/1 'arial';
+		color: black;
+		opacity: 0.6;
+		margin-bottom: 40px;
+		&:hover {
+			color: #ed5656;
+		}
 	}
 `;
 
@@ -51,25 +60,25 @@ const Util = styled.ul`
 function Header() {
 	const navigate = useNavigate();
 	const user = useSelector((store) => store.user);
-	const activeStyle = { color: 'hotpink' };
+	const activeStyle = { color: 'red' };
 
 	return (
 		<HeaderWrap>
 			<Logo>
-				<Link to='/'>DCODELAB</Link>
+				<Link to='/'>담벼락</Link>
 			</Logo>
 
 			<Gnb>
 				<li>
 					<NavLink to='/list' style={({ isActive }) => (isActive ? activeStyle : null)}>
-						Show List
+						담벼락 목록
 					</NavLink>
 				</li>
 				{/* 로그인 유무에 따라 글작성 메뉴 보임처리 */}
 				{user.uid !== '' && (
 					<li>
 						<NavLink to='/create' style={({ isActive }) => (isActive ? activeStyle : null)}>
-							Write Post
+							담벼락 작성
 						</NavLink>
 					</li>
 				)}

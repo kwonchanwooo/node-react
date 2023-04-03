@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none; color: #777;
   }
   body {
-    background: #efefef;
+    background: #eddddd
   }
 `;
 

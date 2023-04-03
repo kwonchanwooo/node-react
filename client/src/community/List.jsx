@@ -5,11 +5,30 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Item = styled.article`
-	width: 100%;
+	width: calc(100% / 3.2);
 	padding: 30px 40px;
-	background: #fff;
+	background: white;
 	margin-bottom: 50px;
 	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.02);
+	border-radius: 10px;
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+
+	float: left;
+	margin-right: 10px;
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	&:hover {
+		transform: scale(1.01);
+		transition: 0.3s;
+		background: #e9c4c4;
+	}
+	.desc {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+	}
 `;
 
 function List() {
@@ -31,14 +50,17 @@ function List() {
 	}, []);
 
 	return (
-		<Layout name={'List'}>
-			{List.map((post) => {
+		<Layout name={'목록'}>
+			{List.map((post, idx) => {
 				return (
 					<Item key={post._id}>
 						<h2>
 							<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
 						</h2>
-						<span>작성자: {post.writer.displayName}</span>
+						<div className='desc'>
+							<span>작성자: {post.writer.displayName}</span>
+							<span>글 번호 : {idx + 1}</span>
+						</div>
 					</Item>
 				);
 			})}
